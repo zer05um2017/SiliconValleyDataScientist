@@ -116,3 +116,29 @@ t2 %>% group_by(Sex) %>%
   summarize(n = sum(Freq),
             survivors=sum(ifelse(Survived=="Yes", Freq, 0))) %>% 
   mutate(rate_survival=survivors/n)
+
+library(tidyverse)
+library(gapminder)
+gapminder %>% filter(year==2007) %>%  
+  ggplot(aes(gdpPercap, lifeExp)) +
+  geom_point() + scale_x_log10() +
+  ggtitle("Gapminder data for 2007")
+
+gapminder %>% filter(year==2007) %>% 
+  ggplot(aes(gdpPercap, lifeExp)) +
+  geom_point(aes(size=pop, col=continent)) + scale_x_log10() +
+  ggtitle("Gapminder data for 2007")
+
+gapminder %>%
+  ggplot(aes(year, lifeExp, group=country)) +
+  geom_line()
+
+gapminder %>% 
+  ggplot(aes(year, lifeExp, group=country, col=continent)) +
+  geom_line() + scale_x_log10() +
+  ggtitle("Gapminder data for 2007")
+
+gapminder %>% 
+  ggplot(aes(year, lifeExp, group=country, col=continent)) +
+  geom_line() +
+  facet_wrap(~ continent)
